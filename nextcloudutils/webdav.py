@@ -65,7 +65,9 @@ class WebDAV:
                 print('Cancelled')
                 return
         if log:
-            with (self.config.cwd / "delete_remote_paths.log").open("a") as fp:
+            fn = self.config.cwd / "delete_remote_paths.log"
+            logger.info(f'Keeping a log of deleted paths: {fn}')
+            with fn.open("a") as fp:
                 self._delete_remote_paths_inner(paths, fp)
         else:
             self._delete_remote_paths_inner(paths)
