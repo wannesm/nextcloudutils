@@ -1,0 +1,4 @@
+
+
+class NoNextcloudDirectory(Exception):
+    pass
