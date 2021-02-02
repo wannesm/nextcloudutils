@@ -14,7 +14,9 @@ setuptools.setup(
     description="Nextcloud utilities",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    keywords="nextcloud",
     url="https://people.cs.kuleuven.be/wannes.meert",
+    license='MIT',
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -25,4 +27,8 @@ setuptools.setup(
     install_requires=[
         "webdavclient3"
     ],
+    entry_points={
+        'console_scripts': [
+            'nextcloudutils = nextcloudutils.cli:main'
+        ]},
 )

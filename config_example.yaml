@@ -1,0 +1,8 @@
+webdav_hostname: https://nextcloud.example.com/remote.php/webdav/
+webdav_login: user
+webdav_password: null
+local_dir: /Users/username/Nextcloud/
+remote_dir: .
+max_depth: 200
+ignore_exclude_pattern:
+  - .DS_Store
