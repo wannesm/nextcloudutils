@@ -63,8 +63,11 @@ def cmd_log(args, client):
 
 
 def cmd_ignored(args, client):
-    logger.info(f"Searching for all ignored files (max-depth={client.config.max_depth})")
-    local_paths = list(client.find_children_local_sync_exclude_files())
+    depth = client.config.max_depth
+    if args.depth is not None:
+        depth = args.depth
+    logger.info(f"Searching for all ignored files (max-depth={depth})")
+    local_paths = list(client.find_children_local_sync_exclude_files(max_depth=depth))
     logger.info(f'Found {len(local_paths)} ignored files or directories')
     if args.no_remote or args.show_ignored:
         if args.sort_size:
@@ -82,7 +85,7 @@ def cmd_ignored(args, client):
                 readable_size = size / 1024**2
                 print(f'{size:>10} {readable_size:6,.0f}MiB {path}')
 
-    if not args.no_remote:
+    if not args.no_remote and len(local_paths) > 0:
         logger.info('Checking on remote')
         exist_paths = list(client.filter_exists_on_remote(local_paths))
         if len(exist_paths) == 0:
@@ -172,6 +175,7 @@ def create_parser():
     parser_ignore.add_argument('--no-remote', action='store_true', help='Only perform local search')
     parser_ignore.add_argument('--show-ignored', action='store_true', help='Show all ignored paths')
     parser_ignore.add_argument('--sort-size', action='store_true', help='Sort ignore paths by size')
+    parser_ignore.add_argument('--depth', '-d', type=int, help='Search up to this depth')
 
     # Log
     parser_log = subparsers.add_parser('log', help='Nextcloud logs',
