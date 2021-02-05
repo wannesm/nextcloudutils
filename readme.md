@@ -5,7 +5,7 @@ Command line utility for additional Nextcloud functionality.
 ## Installation and Usage
 
 ```
-pip install nextcloudutils
+pip install git+https://github.com/wannesm/nextcloudutils.git
 nextcloudutils -h
 ```
 
